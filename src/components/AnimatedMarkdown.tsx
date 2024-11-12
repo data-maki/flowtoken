@@ -120,6 +120,37 @@ export const customCodeRenderer = ({ animation, animationDuration, animationTimi
     ));
 };
 
+/**
+ * A React component that renders markdown content with customizable animations.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <MarkdownAnimateText
+ *   content="# Hello World"
+ *   animation="fadeIn"
+ *   sep="word"
+ *   animationDuration="1s"
+ *   customComponents={{
+ *     // will match <custom id="123" />
+ *     'custom': ({ id }: { id: string }) => <strong>{id}</strong>,
+ *     '/regex/': ({ children }: { children: React.ReactNode }) => <li className="custom-li">{children}</li>,
+ *   }}
+ * />
+ * ```
+ * 
+ * @param {Object} props
+ * @param {string} props.content - The markdown content to render
+ * @param {'word' | 'char'} [props.sep='word'] - Separator for animation ('word' or 'char')
+ * @param {string | null} [props.animation='fadeIn'] - The animation name to apply (set to null to disable)
+ * @param {string} [props.animationDuration='1s'] - Duration of the animation
+ * @param {string} [props.animationTimingFunction='ease-in-out'] - Timing function for the animation
+ * @param {Object} [props.codeStyle=null] - Custom style for code blocks
+ * @param {Object} [props.htmlComponents={}] - Custom HTML component overrides
+ * @param {Object} [props.customComponents={}] - Custom component patterns to match and render
+ * 
+ * @returns {JSX.Element} Animated markdown content
+ */
 const MarkdownAnimateText: React.FC<SmoothTextProps> = ({
     content,
     sep = "word",
@@ -183,13 +214,13 @@ const MarkdownAnimateText: React.FC<SmoothTextProps> = ({
             // Add the substring before the match
             if (match.index > lastIndex) {
                 parts.push(<TokenizedText
-                        input={remainingText.slice(lastIndex, match.index)}
-                        sep={sep}
-                        animation={animation}
-                        animationDuration={animationDuration}
-                        animationTimingFunction={animationTimingFunction}
-                        animationIterationCount={1}
-                    />);
+                  input={remainingText.slice(lastIndex, match.index)}
+                  sep={sep}
+                  animation={animation}
+                  animationDuration={animationDuration}
+                  animationTimingFunction={animationTimingFunction}
+                  animationIterationCount={1}
+                />);
             }
             // Add the match itself - either as custom component or tokenized text
             const matchText = match[0];
@@ -211,7 +242,6 @@ const MarkdownAnimateText: React.FC<SmoothTextProps> = ({
                         }
                         return acc;
                     }, {});
-
                     parts.push(<TokenizedText
                         input={<CustomComponent 
                             key={match.index} 

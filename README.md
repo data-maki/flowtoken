@@ -97,7 +97,7 @@ export default function Chat() {
 
 ### Custom Components
 
-You can use custom components by passing a `customComponents` prop to the `AnimatedMarkdown` component where the key is the regex pattern (ex. `/\{\{.*?\}\}/`) or HTML tag (ex. `MyComponent`) to match and the value is the component to render. Then just prompt your LLM to output the custom component syntax and it will be rendered with your custom component.
+You can use custom components by passing a `customComponents` prop to the `AnimatedMarkdown` component where the key is the regex pattern (ex. `/\{\{.*?\}\}/`) or HTML tag (ex. `MyComponent` for `<MyComponent />`) to match and the value is the component to render. Then just prompt your LLM to output the custom component syntax and it will be rendered with your custom component.
 
 #### Example
 
